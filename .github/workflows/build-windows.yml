@@ -30,15 +30,40 @@ jobs:
           }
           pip install pyinstaller
 
+      - name: Verify entrypoint
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "app.py")) {
+            Write-Error "app.py not found. Please update the PyInstaller entrypoint in .github/workflows/build-windows.yml."
+            exit 1
+          }
+
+      - name: Prepare default config templates
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path "default_configs" | Out-Null
+
+          # These are packaged only as fallback templates. Runtime configs should live in the user data directory.
+          foreach ($cfg in @("pcs_config.json", "runtime_config.json", "site_config.json")) {
+            if ((Test-Path $cfg) -and (-not (Test-Path "default_configs/$cfg"))) {
+              Copy-Item $cfg "default_configs/$cfg" -Force
+            }
+          }
+
       - name: Build EXE
         shell: pwsh
         run: |
           $addData = @()
 
+          # Package static resources and fallback templates only.
+          # Do not package profiles/default as a runtime profile, because user runtime configs should be loaded from APPDATA.
           $items = @(
             @{src="bms_logger/protocols"; dst="bms_logger/protocols"},
+            @{src="bms_profiles"; dst="bms_profiles"},
             @{src="pcs_profiles"; dst="pcs_profiles"},
+            @{src="protocols"; dst="protocols"},
             @{src="config_templates"; dst="config_templates"},
+            @{src="default_configs"; dst="default_configs"},
             @{src="docs"; dst="docs"},
             @{src="templates"; dst="templates"},
             @{src="alarm_map.json"; dst="."}
@@ -48,6 +73,8 @@ jobs:
             if (Test-Path $item.src) {
               $addData += "--add-data"
               $addData += "$($item.src);$($item.dst)"
+            } else {
+              Write-Host "Skip missing resource: $($item.src)"
             }
           }
 
@@ -55,12 +82,21 @@ jobs:
             --noconfirm `
             --clean `
             --windowed `
-            --name BMSLogger `
+            --name ESS-AIO `
+            --collect-all PySide6 `
             app.py `
             @addData
+
+      - name: Create ZIP artifact
+        shell: pwsh
+        run: |
+          if (Test-Path "ESS-AIO-windows.zip") {
+            Remove-Item "ESS-AIO-windows.zip" -Force
+          }
+          Compress-Archive -Path "dist/ESS-AIO/*" -DestinationPath "ESS-AIO-windows.zip" -Force
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: BMSLogger-windows
-          path: dist/BMSLogger/**
+          name: ESS-AIO-windows
+          path: ESS-AIO-windows.zip

@@ -236,26 +236,126 @@ def ensure_profile(profile_dir: Path, project_root: Path | None = None) -> Start
 
 
 def install_crash_handler(log_dir: Path | None = None) -> None:
-    """Install a global crash logger for uncaught exceptions."""
+    """Install crash/exception diagnostics for source and PyInstaller builds.
+
+    This intentionally catches more than normal Python exceptions:
+    - sys.excepthook for main-thread uncaught exceptions
+    - threading.excepthook for worker-thread uncaught exceptions
+    - sys.unraisablehook for destructor/callback exceptions
+    - faulthandler for native crashes where Python would otherwise just exit
+    - Qt message handler for Qt warnings/errors before a crash
+    """
+    import faulthandler
+    import os
+    import platform
     import sys
+    import threading
 
     if log_dir is None:
         log_dir = user_data_dir() / "logs"
     log_dir.mkdir(parents=True, exist_ok=True)
 
+    crash_latest = log_dir / "crash_latest.log"
+    fatal_path = log_dir / "native_fault_latest.log"
+    qt_path = log_dir / "qt_messages.log"
+    lock = threading.RLock()
+
+    def _write_header(f, title: str) -> None:
+        f.write(f"{title}\n")
+        f.write(f"{APP_NAME} v{APP_VERSION}\n")
+        f.write(f"Build: {BUILD_ID}\n")
+        f.write(f"Time: {datetime.now().isoformat(timespec='seconds')}\n")
+        f.write(f"Python: {sys.version}\n")
+        f.write(f"Platform: {platform.platform()}\n")
+        f.write(f"PID: {os.getpid()}\n\n")
+
+    def _append_crash(title: str, body_writer) -> None:
+        try:
+            with lock:
+                stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                stamped = log_dir / f"app_crash_{stamp}.log"
+                for path in (crash_latest, stamped):
+                    with open(path, "w", encoding="utf-8") as f:
+                        _write_header(f, title)
+                        body_writer(f)
+        except Exception:
+            pass
+
+    # Native/extension-level crashes often bypass Python traceback completely.
+    try:
+        fatal_file = open(fatal_path, "a", encoding="utf-8", buffering=1)
+        fatal_file.write("\n\n===== faulthandler armed " + datetime.now().isoformat(timespec="seconds") + " =====\n")
+        faulthandler.enable(file=fatal_file, all_threads=True)
+    except Exception:
+        pass
+
     original_hook = sys.excepthook
 
     def _hook(exc_type, exc_value, exc_tb):
+        def _body(f):
+            traceback.print_exception(exc_type, exc_value, exc_tb, file=f)
+        _append_crash("Uncaught main-thread exception", _body)
         try:
-            stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            crash_path = log_dir / f"app_crash_{stamp}.log"
-            with open(crash_path, "w", encoding="utf-8") as f:
-                f.write(f"{APP_NAME} v{APP_VERSION}\n")
-                f.write(f"Build: {BUILD_ID}\n")
-                f.write(f"Time: {datetime.now().isoformat(timespec='seconds')}\n\n")
-                traceback.print_exception(exc_type, exc_value, exc_tb, file=f)
+            original_hook(exc_type, exc_value, exc_tb)
         except Exception:
             pass
-        original_hook(exc_type, exc_value, exc_tb)
 
     sys.excepthook = _hook
+
+    try:
+        original_thread_hook = threading.excepthook
+
+        def _thread_hook(args):
+            def _body(f):
+                f.write(f"Thread: {getattr(args.thread, 'name', '-') }\n\n")
+                traceback.print_exception(args.exc_type, args.exc_value, args.exc_traceback, file=f)
+            _append_crash("Uncaught worker-thread exception", _body)
+            try:
+                original_thread_hook(args)
+            except Exception:
+                pass
+
+        threading.excepthook = _thread_hook
+    except Exception:
+        pass
+
+    try:
+        original_unraisable = getattr(sys, "unraisablehook", None)
+
+        def _unraisable_hook(unraisable):
+            def _body(f):
+                f.write(f"Object: {getattr(unraisable, 'object', '-')!r}\n")
+                f.write(f"Message: {getattr(unraisable, 'err_msg', '-') }\n\n")
+                traceback.print_exception(unraisable.exc_type, unraisable.exc_value, unraisable.exc_traceback, file=f)
+            _append_crash("Unraisable exception", _body)
+            if original_unraisable:
+                try:
+                    original_unraisable(unraisable)
+                except Exception:
+                    pass
+
+        sys.unraisablehook = _unraisable_hook
+    except Exception:
+        pass
+
+    # Qt can abort the process on some GUI/thread/plugin issues without a Python traceback.
+    try:
+        from PySide6.QtCore import qInstallMessageHandler
+
+        def _qt_message_handler(mode, context, message):  # noqa: ANN001 - Qt callback signature
+            try:
+                with lock:
+                    with open(qt_path, "a", encoding="utf-8") as f:
+                        f.write(
+                            f"{datetime.now().isoformat(timespec='seconds')} "
+                            f"mode={mode} file={getattr(context, 'file', '')} "
+                            f"line={getattr(context, 'line', '')} "
+                            f"function={getattr(context, 'function', '')} msg={message}\n"
+                        )
+            except Exception:
+                pass
+
+        qInstallMessageHandler(_qt_message_handler)
+    except Exception:
+        pass
+

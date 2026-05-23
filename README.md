@@ -72,4 +72,4 @@ This package includes:
 - README_pcs_ui_performance_fix.md
 - README_ui_readability_polish.md
 - README_pcs_table_readability_scroll_fix.md
-- README_TEMPLATE_PACKAGES.md# ESS-AIO-V4
+- README_TEMPLATE_PACKAGES.md

@@ -33,6 +33,8 @@ from .paths import resource_path, user_data_dir
 
 
 class UiBridge(QObject):
+    log_message = Signal(str)
+    control_log_message = Signal(str)
     data_received = Signal(str, dict)
     error_received = Signal(str, str)
     task_status_received = Signal(str, dict)
@@ -82,6 +84,8 @@ class MainWindow(
         self.setFont(font)
 
         self.bridge = UiBridge()
+        self.bridge.log_message.connect(self.log)
+        self.bridge.control_log_message.connect(self.control_log)
         self.bridge.data_received.connect(self.on_data_received)
         self.bridge.error_received.connect(self.on_error_received)
         self.bridge.task_status_received.connect(self.on_task_status_received)
@@ -116,7 +120,10 @@ class MainWindow(
         self.audit_controller = AuditController(self)
         self.service_action_controller = ServiceActionController(self)
         self.app_facade = AppFacade(self)
-        self.fleet_manager = FleetManager(log=self.log, status_callback=lambda dn, status: self.bridge.task_status_received.emit(dn, status))
+        self.fleet_manager = FleetManager(
+            log=lambda msg: self.bridge.log_message.emit(str(msg)),
+            status_callback=lambda dn, status: self.bridge.task_status_received.emit(dn, status),
+        )
         self.fleet_status_timer = QTimer(self)
         self.fleet_status_timer.setInterval(1000)
         self.fleet_status_timer.timeout.connect(self.refresh_fleet_heartbeat_status)
@@ -267,6 +274,7 @@ class MainWindow(
 
 def run() -> None:
     app = QApplication(sys.argv)
+    app.setQuitOnLastWindowClosed(True)
     window = MainWindow()
     window.show()
     sys.exit(app.exec())

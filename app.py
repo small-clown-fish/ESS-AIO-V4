@@ -10,9 +10,12 @@ os.environ.setdefault("QT_OPENGL", "software")
 os.environ.setdefault("QT_QUICK_BACKEND", "software")
 
 from bms_logger.release_manager import install_crash_handler
-from bms_logger.ui import run
 
 
 if __name__ == "__main__":
+    # Install diagnostics before importing the Qt UI so Qt messages/native faults
+    # during startup are also captured.
     install_crash_handler(user_data_dir() / "logs")
+    from bms_logger.ui import run
+
     run()

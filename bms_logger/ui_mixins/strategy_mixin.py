@@ -308,7 +308,10 @@ def _cluster_strategy_dispatch_power(self, pcs_name: str, power_kw: float, label
         )
         return count > 0
     except Exception as exc:
-        self.control_log(f"[CLUSTER_STRATEGY][ERROR] dispatch {pcs_name} {power_kw}kW failed: {exc}")
+        try:
+            self.bridge.control_log_message.emit(f"[CLUSTER_STRATEGY][ERROR] dispatch {pcs_name} {power_kw}kW failed: {exc}")
+        except Exception:
+            pass
         return False
 
 
@@ -429,7 +432,7 @@ def _cluster_strategy_start(self) -> None:
         pcs_configs=getattr(self, "pcs_configs", {}),
         snapshot_provider=lambda name: getattr(self, "latest_snapshots", {}).get(name),
         dispatch_power=self._cluster_strategy_dispatch_power,
-        log=lambda msg: self.control_log(msg),
+        log=lambda msg: self.bridge.control_log_message.emit(str(msg)),
         state_callback=self._cluster_strategy_on_state,
     )
     self.cluster_strategy_workers[cluster_name] = worker

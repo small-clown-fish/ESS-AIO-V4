@@ -1,22 +1,21 @@
-name: Build Windows EXE
+name: Build Windows EXE Light
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  push:
+    branches:
+      - main
+      - master
 
 jobs:
-  build:
+  build-windows:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -25,47 +24,23 @@ jobs:
         shell: pwsh
         run: |
           python -m pip install --upgrade pip
-          if (Test-Path "requirements.txt") {
+          if (Test-Path requirements.txt) {
             pip install -r requirements.txt
           }
           pip install pyinstaller
 
-      - name: Verify entrypoint
+      - name: Build with PyInstaller light mode
         shell: pwsh
         run: |
-          if (-not (Test-Path "app.py")) {
-            Write-Error "app.py not found. Please update the PyInstaller entrypoint in .github/workflows/build-windows.yml."
-            exit 1
-          }
+          $ErrorActionPreference = "Stop"
 
-      - name: Prepare default config templates
-        shell: pwsh
-        run: |
-          New-Item -ItemType Directory -Force -Path "default_configs" | Out-Null
-
-          # These are packaged only as fallback templates. Runtime configs should live in the user data directory.
-          foreach ($cfg in @("pcs_config.json", "runtime_config.json", "site_config.json")) {
-            if ((Test-Path $cfg) -and (-not (Test-Path "default_configs/$cfg"))) {
-              Copy-Item $cfg "default_configs/$cfg" -Force
-            }
-          }
-
-      - name: Build EXE
-        shell: pwsh
-        run: |
           $addData = @()
-
-          # Package static resources and fallback templates only.
-          # Do not package profiles/default as a runtime profile, because user runtime configs should be loaded from APPDATA.
           $items = @(
             @{src="bms_logger/protocols"; dst="bms_logger/protocols"},
             @{src="bms_profiles"; dst="bms_profiles"},
             @{src="pcs_profiles"; dst="pcs_profiles"},
-            @{src="protocols"; dst="protocols"},
             @{src="config_templates"; dst="config_templates"},
             @{src="default_configs"; dst="default_configs"},
-            @{src="docs"; dst="docs"},
-            @{src="templates"; dst="templates"},
             @{src="alarm_map.json"; dst="."}
           )
 
@@ -73,30 +48,55 @@ jobs:
             if (Test-Path $item.src) {
               $addData += "--add-data"
               $addData += "$($item.src);$($item.dst)"
+            }
+          }
+
+          $entry = "app.py"
+          if (-not (Test-Path $entry)) {
+            if (Test-Path "main.py") {
+              $entry = "main.py"
+            } elseif (Test-Path "bms_logger/app.py") {
+              $entry = "bms_logger/app.py"
             } else {
-              Write-Host "Skip missing resource: $($item.src)"
+              throw "Cannot find entry file: app.py, main.py, or bms_logger/app.py"
             }
           }
 
           pyinstaller `
             --noconfirm `
             --clean `
+            --onedir `
             --windowed `
-            --name ESS-AIO `
-            --collect-all PySide6 `
-            app.py `
-            @addData
+            --name "ESS-AIO" `
+            --hidden-import PySide6.QtCore `
+            --hidden-import PySide6.QtGui `
+            --hidden-import PySide6.QtWidgets `
+            --hidden-import PySide6.QtNetwork `
+            --hidden-import pymodbus `
+            --hidden-import pymodbus.client `
+            --hidden-import pymodbus.exceptions `
+            @addData `
+            $entry
+
+      - name: Verify build output
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "dist/ESS-AIO/ESS-AIO.exe")) {
+            Get-ChildItem -Recurse dist | Select-Object FullName
+            throw "ESS-AIO.exe not found"
+          }
 
       - name: Create ZIP artifact
         shell: pwsh
         run: |
-          if (Test-Path "ESS-AIO-windows.zip") {
-            Remove-Item "ESS-AIO-windows.zip" -Force
+          if (Test-Path "ESS-AIO-windows-light.zip") {
+            Remove-Item "ESS-AIO-windows-light.zip" -Force
           }
-          Compress-Archive -Path "dist/ESS-AIO/*" -DestinationPath "ESS-AIO-windows.zip" -Force
+          Compress-Archive -Path "dist/ESS-AIO/*" -DestinationPath "ESS-AIO-windows-light.zip" -Force
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ESS-AIO-windows
-          path: ESS-AIO-windows.zip
+          name: ESS-AIO-windows-light
+          path: ESS-AIO-windows-light.zip
+          retention-days: 14

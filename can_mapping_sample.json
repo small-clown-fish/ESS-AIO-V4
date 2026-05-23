@@ -1,0 +1,11 @@
+{
+  "messages": {
+    "0x18FF50E5": "BMS_Status"
+  },
+  "signals": {
+    "0x18FF50E5": [
+      {"name": "pack_voltage", "start_byte": 0, "length": 2, "endian": "big", "scale": 0.1, "offset": 0, "unit": "V"},
+      {"name": "pack_current", "start_byte": 2, "length": 2, "endian": "big", "scale": 0.1, "offset": -3200, "unit": "A"}
+    ]
+  }
+}

@@ -1,0 +1,66 @@
+name: Build Windows EXE
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        shell: pwsh
+        run: |
+          python -m pip install --upgrade pip
+          if (Test-Path "requirements.txt") {
+            pip install -r requirements.txt
+          }
+          pip install pyinstaller
+
+      - name: Build EXE
+        shell: pwsh
+        run: |
+          $addData = @()
+
+          $items = @(
+            @{src="bms_logger/protocols"; dst="bms_logger/protocols"},
+            @{src="pcs_profiles"; dst="pcs_profiles"},
+            @{src="config_templates"; dst="config_templates"},
+            @{src="docs"; dst="docs"},
+            @{src="templates"; dst="templates"},
+            @{src="alarm_map.json"; dst="."}
+          )
+
+          foreach ($item in $items) {
+            if (Test-Path $item.src) {
+              $addData += "--add-data"
+              $addData += "$($item.src);$($item.dst)"
+            }
+          }
+
+          pyinstaller `
+            --noconfirm `
+            --clean `
+            --windowed `
+            --name BMSLogger `
+            app.py `
+            @addData
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: BMSLogger-windows
+          path: dist/BMSLogger/**

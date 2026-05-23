@@ -1,0 +1,6 @@
+{
+  "name": "CATL_V17_BMS_Template",
+  "version": "1.0",
+  "type": "bms",
+  "description": "Sample ESS-AIO template package for CATL V17 BMS profile resources. Replace payload files with site-specific files before field use."
+}

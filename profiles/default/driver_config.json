@@ -1,0 +1,4 @@
+{
+  "bms_driver": "catl_v17_bms",
+  "pcs_driver": "generic_modbus_pcs"
+}

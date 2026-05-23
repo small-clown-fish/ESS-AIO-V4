@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "name": "Monitor Only",
+  "enabled": true,
+  "params": {
+    "power_derating_enabled": false,
+    "cutoff_mode": "Alarm Only",
+    "pcs_fault_protection_mode": "Alarm Only"
+  }
+}

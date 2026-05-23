@@ -1,0 +1,241 @@
+{
+  "0x0000": {
+    "Bit0": "Single cell over- voltage warning level 1",
+    "Bit1": "Single cell over- voltage warning level 2",
+    "Bit2": "Single cell over- voltage warning level 3",
+    "Bit3": "Single cell under-voltage warning level 1",
+    "Bit4": "Single cell under-voltage warning level 2",
+    "Bit5": "Single cell under-voltage warning level 3",
+    "Bit6": "Single cell extreme over- voltage warning",
+    "Bit7": "Single cell extreme under- voltage warning",
+    "Bit8": "Single rack over- voltage warning level 1",
+    "Bit9": "Single rack over- voltage warning level 2",
+    "Bit10": "Single rack under-voltage warning level 1",
+    "Bit11": "Single rack under-voltage warning level 2",
+    "Bit12": "Big voltage difference between cells warning",
+    "Bit13": "Invalid cell voltage warning",
+    "Bit14": "Replacement required due to single cell over discharge",
+    "Bit15": "Replacement required due to single cell over charge"
+  },
+  "0x0001": {
+    "Bit0": "Low SOC over discharge warning",
+    "Bit1": "Low SOC over discharge warning",
+    "Bit2": "Discharge over- current warning level 1",
+    "Bit3": "Discharge over- current warning level 2",
+    "Bit4": "Discharge over- current warning level 3",
+    "Bit5": "Discharge over- current warning level 4",
+    "Bit6": "Charge over- current warning level 1",
+    "Bit7": "Charge over- current warning level 2",
+    "Bit8": "Charge over- current warning level 3",
+    "Bit9": "Charge over- current warning level 4",
+    "Bit10": "Current sensor failed warning",
+    "Bit14": "Single cell over- temperature warning level 1",
+    "Bit15": "Single cell over- temperature warning level 2"
+  },
+  "0x0002": {
+    "Bit0": "Single cell over- temperature warning level 3",
+    "Bit1": "Single cell over- temperature warning level 4",
+    "Bit2": "Single cell under- temperature warning level 1",
+    "Bit3": "Single cell under- temperature warning level 2",
+    "Bit4": "Single cell under- temperature warning level 3",
+    "Bit5": "Big temperature difference between cells warning level 1",
+    "Bit6": "Big temperature difference between cells warning level 2",
+    "Bit7": "Big temperature difference between cells warning level 3",
+    "Bit8": "SBMU main control box over- temperature warning level 1",
+    "Bit9": "SBMU main control box over- temperature warning level 2",
+    "Bit10": "SBMU main control box over- temperature warning level 3",
+    "Bit11": "SBMU main control box over- temperature warning level 4",
+    "Bit12": "SBMU main control box under- temperature warning level 1",
+    "Bit13": "SBMU main control box under- temperature warning level 2",
+    "Bit14": "SBMU main control box under- temperature warning level 3",
+    "Bit15": "Single temperature sampling abnormal warning"
+  },
+  "0x0003": {
+    "Bit0": "Multiple temperature sampling abnormal warning",
+    "Bit2": "Low-temperature charging warning"
+  },
+  "0x0004": {
+    "Bit7": "Abnormal warning before current sensor is enabled",
+    "Bit8": "Abnormal fault before current sensor is enabled",
+    "Bit9": "CSC 24V power supply abnormal warning",
+    "Bit10": "SBMU 24V power supply abnormal warning",
+    "Bit11": "SBMU 24V power supply abnormal warning",
+    "Bit12": "Pre-charge relay sticking warning",
+    "Bit13": "Pre-charge relay open circuit warning",
+    "Bit14": "MSD warning",
+    "Bit15": "Rack fuse warning"
+  },
+  "0x0005": {
+    "Bit0": "Rack isolate switch warning",
+    "Bit1": "Main positive relay sticking warning",
+    "Bit2": "Main negative relay sticking warning",
+    "Bit3": "Both main positive relay and main negative relay sticking fault",
+    "Bit4": "Main positive relay open circuit warning",
+    "Bit5": "Main negative open circuit warning",
+    "Bit6": "Battery rack door (travel switch) fault",
+    "Bit7": "Main control box fan warning"
+  },
+  "0x0006": {
+    "Bit5": "Inner communication warning (CCAN)",
+    "Bit6": "Inner communication warning (SCAN)",
+    "Bit7": "Inner communication warning (MCAN)",
+    "Bit9": "CSC daisy chain communication failure",
+    "Bit11": "Balancing circuit warning",
+    "Bit13": "SOC low warning level 1",
+    "Bit14": "SOC low warning level 2",
+    "Bit15": "HV circuit open circuit warning"
+  },
+  "0x0007": {
+    "Bit3": "Pre-charging failed twice warning",
+    "Bit4": "Pre-charge overcurrent warning",
+    "Bit5": "Cell voltage sampling wire disconnected warning",
+    "Bit6": "Sampling loop leakage current warning",
+    "Bit9": "HV+&HV- reversed connection fault"
+  },
+  "0x0008": {
+    "Bit0": "Thermal runaway caused fire fault",
+    "Bit1": "SBMU NTC open circuit warning",
+    "Bit2": "SBMU NTC short circuit warning",
+    "Bit5": "HV circuit (Fuse)open circuit warning"
+  },
+  "0x0010": {
+    "Bit0": "Insulation warning",
+    "Bit1": "Insulation fault",
+    "Bit2": "Invalid insulation fault",
+    "Bit3": "The quantity of HV racks less than setting value fault",
+    "Bit4": "MBMU NTC open circuit warning",
+    "Bit5": "MBMU NTC short circuit warning",
+    "Bit6": "SBMU communication lost warning",
+    "Bit7": "SBMU communication lost fault",
+    "Bit8": "EMS communication lost fault",
+    "Bit9": "IMM communication lost fault",
+    "Bit11": "Centralized TMS communication fault",
+    "Bit12": "Centralized TMS communication warning",
+    "Bit14": "Centralized TMS mode conflict fault"
+  },
+  "0x0011": {
+    "Bit0": "SPD failure warning",
+    "Bit1": "AUX Power DCDC failure warning",
+    "Bit2": "AUX Power ACDC failure warning",
+    "Bit3": "AUX Power failure fault",
+    "Bit6": "Fire system failure warning MBMU",
+    "Bit7": "E-STOP fault",
+    "Bit8": "Client E-STOP fault",
+    "Bit9": "Electrical rack door (travel switch) fault",
+    "Bit10": "Electrical rack fan warning",
+    "Bit11": "Smoke exhaust ventilation body warning",
+    "Bit12": "Smoke exhaust ventilation state fault",
+    "Bit13": "Dehumidifier1 failure warning"
+  },
+  "0x0012": {
+    "Bit0": "Dehumidifier2 failure warning"
+  },
+  "0x0013": {
+    "Bit3": "MBMU 24V power supply abnormal fault",
+    "Bit4": "Slave MBMU communication lost fault",
+    "Bit8": "Auxiliary distribution box over- temperature warning",
+    "Bit9": "Auxiliary distribution box over- temperature fault",
+    "Bit10": "Auxiliary distribution box under- temperature warning",
+    "Bit11": "24V AUXPower failure fault",
+    "Bit15": "Step-Charge Mode inconsistency warning"
+  },
+  "0x0014": {
+    "Bit0": "DC SPD failure warning",
+    "Bit1": "IsoSwitchBUS1 fault",
+    "Bit2": "IsoSwitchBUS2 fault"
+  },
+  "0x0400": {
+    "Bit0": "Single cell over- voltage warning level 1",
+    "Bit1": "Single cell over- voltage warning level 2",
+    "Bit2": "Single cell over- voltage warning level 3",
+    "Bit3": "Single cell under- voltage warning level 1",
+    "Bit4": "Single cell under- voltage warning level 2",
+    "Bit5": "Single cell under- voltage warning level 3",
+    "Bit6": "Single cell extreme over- voltage fault",
+    "Bit7": "Single cell extreme under- voltage fault",
+    "Bit8": "Single rack over- voltage warning level 1",
+    "Bit9": "Single rack over- voltage warning level 2",
+    "Bit10": "Single rack under- voltage warning level 1",
+    "Bit11": "Single rack under- voltage warning level 2",
+    "Bit12": "Big voltage difference between cells warning",
+    "Bit13": "Invalid cell voltage fault",
+    "Bit14": "Replacement required due to single cell over discharge",
+    "Bit15": "Replacement required due to single cell over charge"
+  },
+  "0x0401": {
+    "Bit0": "Low SOC over discharge warning",
+    "Bit1": "Low SOC over discharge fault",
+    "Bit2": "Discharge over- current warning level 1",
+    "Bit3": "Discharge over- current warning level 2",
+    "Bit4": "Discharge over- current warning level 3",
+    "Bit6": "Charge over- current warning level 1",
+    "Bit7": "Charge over- current warning level 2",
+    "Bit8": "Charge over- current warning level 3",
+    "Bit10": "Current sensor failed fault",
+    "Bit14": "Single cell over- temperature warning level 1",
+    "Bit15": "Single cell over- temperature warning level 2"
+  },
+  "0x0402": {
+    "Bit0": "Single cell over- temperature warning level 3",
+    "Bit2": "Single cell under- temperature warning level 1",
+    "Bit3": "Single cell under- temperature warning level 2",
+    "Bit4": "Single cell under- temperature warning level 3",
+    "Bit5": "Big temperature difference between cells warning level 1",
+    "Bit6": "Big temperature difference between cells warning level 2",
+    "Bit7": "Big temperature difference between cells warning level 3",
+    "Bit8": "SBMU main control box over- temperature warning level 1",
+    "Bit9": "SBMU main control box over- temperature warning level 2",
+    "Bit10": "SBMU main control box over- temperature warning level 3",
+    "Bit11": "SBMU main control box over- temperature warning level 4",
+    "Bit12": "SBMU main control box under- temperature warning level 1",
+    "Bit13": "SBMU main control box under- temperature warning level 2",
+    "Bit14": "SBMU main control box under- temperature warning level 3",
+    "Bit15": "Single temperature sampling abnormal fault"
+  },
+  "0x0403": {
+    "Bit0": "Multiple temperature sampling abnormal fault"
+  },
+  "0x0404": {
+    "Bit7": "SBMU 24V power supply abnormal warning before current sensor is enabled",
+    "Bit8": "SBMU 24V power supply abnormal fault before current sensor is enabled",
+    "Bit9": "CSC 24V power supply abnormal fault",
+    "Bit10": "SBMU 24V power supply abnormal fault",
+    "Bit11": "SBMU 24V power supply abnormal warning",
+    "Bit12": "Pre-charge relay sticking warning",
+    "Bit13": "Pre-charge relay open circuit warning",
+    "Bit14": "MSD fault",
+    "Bit15": "Rack fuse fault"
+  },
+  "0x0405": {
+    "Bit0": "Rack isolate switch fault",
+    "Bit1": "Main positive relay sticking fault",
+    "Bit2": "Main negative relay sticking fault",
+    "Bit3": "Both main positive relay and",
+    "Bit4": "Main positive relay open circuit fault",
+    "Bit5": "Main negative open circuit fault",
+    "Bit6": "Battery rack door (travel switch) fault",
+    "Bit7": "Main control box fan fault"
+  },
+  "0x0406": {
+    "Bit5": "Inner communication fault (CCAN)",
+    "Bit6": "Inner communication fault (SCAN)",
+    "Bit7": "Inner communication fault (MCAN)",
+    "Bit11": "Balancing circuit fault",
+    "Bit13": "SOC low warning level 1",
+    "Bit14": "SOC low warning level 2",
+    "Bit15": "HV circuit open circuit fault"
+  },
+  "0x0407": {
+    "Bit3": "Pre-charging failed twice fault",
+    "Bit4": "Pre-charge overcurrent warning",
+    "Bit5": "Cell voltage sampling wire disconnected warning",
+    "Bit6": "Sampling loop leakage current warning",
+    "Bit9": "HV+&HV- reversed connection fault"
+  },
+  "0x0408": {
+    "Bit0": "Thermal runaway caused fire fault",
+    "Bit1": "SBMU NTC open circuit warning",
+    "Bit2": "SBMU NTC short circuit warning",
+    "Bit5": "HV circuit (Fuse)open circuit fault"
+  }
+}

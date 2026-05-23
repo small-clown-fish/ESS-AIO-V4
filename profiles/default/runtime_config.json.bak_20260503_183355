@@ -1,0 +1,18 @@
+{
+  "heartbeat_interval": 1.0,
+  "hv_step_timeout": 30.0,
+  "hv_poll_interval": 1.0,
+  "pcs_zero_power_threshold": 0.1,
+  "charge_cutoff_max_cell_voltage": 3650.0,
+  "discharge_cutoff_min_cell_voltage": 2500.0,
+  "cutoff_mode": "Alarm Only",
+  "cutoff_trigger_confirm_count": 3,
+  "cutoff_recover_confirm_count": 3,
+  "alarm_history_window_before_minutes": 5,
+  "alarm_history_window_after_minutes": 5,
+  "power_tracking_enabled": true,
+  "power_tracking_tolerance_kw": 5.0,
+  "power_tracking_confirm_count": 3,
+  "pcs_fault_protection_mode": "Alarm Only",
+  "pcs_fault_confirm_count": 3
+}

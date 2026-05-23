@@ -1,0 +1,49 @@
+{
+  "name": "Default Safety Strategy",
+  "version": "1.0",
+  "enabled": true,
+  "description": "Profile-level strategy overrides for cutoff, derating, tracking and protection.",
+  "overrides": {
+    "charge_cutoff_max_cell_voltage": 3650.0,
+    "discharge_cutoff_min_cell_voltage": 2500.0,
+    "derating_margin_mv": 50.0,
+    "derating_power_kw": 10.0,
+    "cutoff_mode": "Alarm Only",
+    "pcs_fault_protection_mode": "Alarm Only",
+    "power_tracking_tolerance_kw": 5.0
+  },
+  "fake_tests": [
+    {
+      "name": "Normal",
+      "bms_scenario": "normal",
+      "pcs_scenario": "normal"
+    },
+    {
+      "name": "High Voltage Derating/Cutoff",
+      "bms_scenario": "high_voltage",
+      "pcs_scenario": "normal"
+    },
+    {
+      "name": "Low Voltage Discharge Cutoff",
+      "bms_scenario": "low_voltage",
+      "pcs_scenario": "normal"
+    },
+    {
+      "name": "PCS Fault",
+      "bms_scenario": "normal",
+      "pcs_scenario": "fault"
+    },
+    {
+      "name": "PCS Offline",
+      "bms_scenario": "normal",
+      "pcs_scenario": "offline"
+    },
+    {
+      "name": "PCS Power Deviation",
+      "bms_scenario": "normal",
+      "pcs_scenario": "deviation"
+    }
+  ],
+  "runtime_overrides": {},
+  "rules": []
+}

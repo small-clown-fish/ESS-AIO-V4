@@ -1,0 +1,10 @@
+VERSION "ESS-AIO sample DBC"
+
+NS_ :
+BS_:
+BU_: Vector__XXX
+
+BO_ 419385573 BMS_Status: 8 Vector__XXX
+ SG_ pack_voltage : 0|16@1+ (0.1,0) [0|6553.5] "V" Vector__XXX
+ SG_ pack_current : 16|16@1+ (0.1,-3200) [-3200|3353.5] "A" Vector__XXX
+ SG_ soc : 32|8@1+ (0.5,0) [0|100] "%" Vector__XXX

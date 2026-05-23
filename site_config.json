@@ -1,0 +1,17 @@
+{
+  "site": "Default Site",
+  "clusters": [
+    {
+      "name": "Cluster-1",
+      "bms_devices": [
+        "BMS-1"
+      ],
+      "pcs_device": "PCS-1"
+    },
+    {
+      "name": "blk1",
+      "bms_devices": [],
+      "pcs_device": ""
+    }
+  ]
+}

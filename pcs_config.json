@@ -1,0 +1,455 @@
+{
+  "enabled": false,
+  "vendor": "Kehua",
+  "model": "BCS1250K-C-HUD",
+  "protocol": "WRDF-0I002-103 北向监控Modbus通信协议 V1.00A",
+  "host": "",
+  "port": 502,
+  "unit_id": 1,
+  "timeout": 3.0,
+  "notes": [
+    "Kehua BCS1250K-C-HUD Modbus profile generated from WRDF-0I002-103 V1.00A.",
+    "PcsClient in this package supports UINT16/INT16/UINT32/INT32 with register_count and word_order.",
+    "Addresses are used as protocol/PDU addresses as listed in the vendor table. If your device uses 1-based documentation addresses, adjust address_offset in the config manually.",
+    "v3.11 fix: PCS heartbeat write point corrected to 8194. Register 7909 is reactive-power remote enable; write 7909=1 before writing reactive power setpoint 7812."
+  ],
+  "points": {
+    "run_status": {
+      "register_type": "holding",
+      "address": 7000,
+      "scale": 1.0,
+      "offset": 0.0,
+      "name_cn": "运行状态",
+      "data_type": "ENUM",
+      "register_count": 1,
+      "unit": "",
+      "access": "RO",
+      "enum": {
+        "0": "停机（无故障且接触器处于断开状态）",
+        "1": "待机（无故障且接触器处于闭合状态，无充、放电功率）",
+        "2": "故障（有故障产生，接触器处于断开状态）",
+        "3": "充电（处于充电状态）",
+        "4": "放电（处于放电状态）",
+        "5": "充电降额（处于充电状态，降额）",
+        "6": "放电降额（处于放电状态，降额）"
+      },
+      "remark": "/"
+    },
+    "online_status": {
+      "register_type": "holding",
+      "address": 7032,
+      "scale": 1.0,
+      "offset": 0.0,
+      "name_cn": "远程投退状态",
+      "data_type": "ENUM",
+      "register_count": 1,
+      "unit": "",
+      "access": "RO",
+      "enum": {
+        "0": "退出",
+        "1": "投入"
+      },
+      "remark": "/",
+      "online_value": 1,
+      "remote_value": 1
+    },
+    "remote_local_status": {
+      "register_type": "holding",
+      "address": 7032,
+      "scale": 1.0,
+      "offset": 0.0,
+      "name_cn": "远程投退状态",
+      "data_type": "ENUM",
+      "register_count": 1,
+      "unit": "",
+      "access": "RO",
+      "enum": {
+        "0": "退出",
+        "1": "投入"
+      },
+      "remark": "/",
+      "remote_value": 1
+    },
+    "fault_status": {
+      "register_type": "holding",
+      "address": 7039,
+      "scale": 1.0,
+      "offset": 0.0,
+      "name_cn": "系统告警1",
+      "data_type": "Bitfield16",
+      "register_count": 1,
+      "unit": "",
+      "access": "RO",
+      "enum": {},
+      "remark": "/"
+    },
+    "alarm_status": {
+      "register_type": "holding",
+      "address": 7040,
+      "scale": 1.0,
+      "offset": 0.0,
+      "name_cn": "系统告警2",
+      "data_type": "Bitfield16",
+      "register_count": 1,
+      "unit": "",
+      "access": "RO",
+      "enum": {},
+      "remark": "/"
+    },
+    "dc_breaker_status": {
+      "register_type": "holding",
+      "address": 7031,
+      "scale": 1.0,
+      "offset": 0.0,
+      "name_cn": "直流开关状态",
+      "data_type": "ENUM",
+      "register_count": 1,
+      "unit": "",
+      "access": "RO",
+      "enum": {
+        "0": "断开",
+        "1": "吸合"
+      },
+      "remark": "/",
+      "open_value": 0,
+      "closed_value": 1
+    },
+    "ac_breaker_status": {
+      "register_type": "holding",
+      "address": 7030,
+      "scale": 1.0,
+      "offset": 0.0,
+      "name_cn": "交流开关状态",
+      "data_type": "ENUM",
+      "register_count": 1,
+      "unit": "",
+      "access": "RO",
+      "enum": {
+        "0": "断开",
+        "1": "吸合"
+      },
+      "remark": "/",
+      "open_value": 0,
+      "closed_value": 1
+    },
+    "mode": {
+      "register_type": "holding",
+      "address": 7806,
+      "scale": 1.0,
+      "offset": 0.0
+    },
+    "charge_enable_status": {
+      "register_type": "holding",
+      "address": 7807,
+      "scale": 1.0,
+      "offset": 0.0,
+      "enable_value": 1,
+      "disable_value": 0
+    },
+    "discharge_enable_status": {
+      "register_type": "holding",
+      "address": 7807,
+      "scale": 1.0,
+      "offset": 0.0,
+      "enable_value": 1,
+      "disable_value": 0
+    },
+    "active_power": {
+      "register_type": "holding",
+      "address": 7022,
+      "scale": 1.0,
+      "offset": 0.0,
+      "name_cn": "交流侧充电有功功率",
+      "data_type": "INT16",
+      "register_count": 1,
+      "unit": "kW",
+      "access": "RO",
+      "enum": {},
+      "remark": "/"
+    },
+    "discharge_active_power": {
+      "register_type": "holding",
+      "address": 7024,
+      "scale": 1.0,
+      "offset": 0.0,
+      "name_cn": "交流侧放电有功功率",
+      "data_type": "INT16",
+      "register_count": 1,
+      "unit": "kW",
+      "access": "RO",
+      "enum": {},
+      "remark": "/"
+    },
+    "reactive_power": {
+      "register_type": "holding",
+      "address": 7023,
+      "scale": 1.0,
+      "offset": 0.0,
+      "name_cn": "交流侧容性无功功率",
+      "data_type": "UINT16",
+      "register_count": 1,
+      "unit": "kvar",
+      "access": "RO",
+      "enum": {},
+      "remark": "/"
+    },
+    "inductive_reactive_power": {
+      "register_type": "holding",
+      "address": 7025,
+      "scale": 1.0,
+      "offset": 0.0,
+      "name_cn": "交流侧感性无功功率",
+      "data_type": "UINT16",
+      "register_count": 1,
+      "unit": "kvar",
+      "access": "RO",
+      "enum": {},
+      "remark": "/"
+    },
+    "dc_voltage": {
+      "register_type": "holding",
+      "address": 8201,
+      "scale": 0.1,
+      "offset": 0.0,
+      "name_cn": "电池组总电压",
+      "data_type": "UINT16",
+      "register_count": 1,
+      "unit": "V",
+      "access": "RO",
+      "enum": {},
+      "remark": "/"
+    },
+    "dc_current": {
+      "register_type": "holding",
+      "address": 8202,
+      "scale": 0.1,
+      "offset": 0.0,
+      "name_cn": "电池组总电流",
+      "data_type": "INT16",
+      "register_count": 1,
+      "unit": "A",
+      "access": "RO",
+      "enum": {},
+      "remark": "/"
+    },
+    "ac_voltage": {
+      "register_type": "holding",
+      "address": 7055,
+      "scale": 0.1,
+      "offset": 0.0,
+      "name_cn": "系统电网UV线电压/\n系统电网AB线电压",
+      "data_type": "UINT16",
+      "register_count": 1,
+      "unit": "V",
+      "access": "RO",
+      "enum": {},
+      "remark": "/"
+    },
+    "ac_current": {
+      "register_type": "holding",
+      "address": 7011,
+      "scale": 0.1,
+      "offset": 0.0,
+      "name_cn": "系统输出U相电流/\n系统输出A相电流",
+      "data_type": "UINT16",
+      "register_count": 1,
+      "unit": "A",
+      "access": "RO",
+      "enum": {},
+      "remark": "/"
+    },
+    "frequency": {
+      "register_type": "holding",
+      "address": 7233,
+      "scale": 0.01,
+      "offset": 0.0,
+      "name_cn": "单元1电网频率",
+      "data_type": "UINT16",
+      "register_count": 1,
+      "unit": "Hz",
+      "access": "RO",
+      "enum": {},
+      "remark": "/"
+    },
+    "power_factor": {
+      "register_type": "holding",
+      "address": 7035,
+      "scale": 0.001,
+      "offset": 0.0,
+      "name_cn": "功率因数",
+      "data_type": "INT16",
+      "register_count": 1,
+      "unit": "",
+      "access": "RO",
+      "enum": {},
+      "remark": "/"
+    },
+    "start_cmd": {
+      "register_type": "holding",
+      "address": 7800,
+      "scale": 1.0,
+      "offset": 0.0,
+      "write_value": 1
+    },
+    "stop_cmd": {
+      "register_type": "holding",
+      "address": 7800,
+      "scale": 1.0,
+      "offset": 0.0,
+      "write_value": 0
+    },
+    "hv_on_cmd": {
+      "register_type": "holding",
+      "address": 7800,
+      "scale": 1.0,
+      "offset": 0.0,
+      "write_value": 1
+    },
+    "hv_off_cmd": {
+      "register_type": "holding",
+      "address": 7800,
+      "scale": 1.0,
+      "offset": 0.0,
+      "write_value": 0
+    },
+    "reset_fault_cmd": {
+      "register_type": "holding",
+      "address": 7841,
+      "scale": 1.0,
+      "offset": 0.0,
+      "write_value": 1
+    },
+    "close_dc_breaker_cmd": {
+      "register_type": "holding",
+      "address": 7800,
+      "scale": 1.0,
+      "offset": 0.0,
+      "write_value": 1
+    },
+    "open_dc_breaker_cmd": {
+      "register_type": "holding",
+      "address": 7800,
+      "scale": 1.0,
+      "offset": 0.0,
+      "write_value": 0
+    },
+    "enable_charge_cmd": {
+      "register_type": "holding",
+      "address": 7807,
+      "scale": 1.0,
+      "offset": 0.0,
+      "enable_value": 1
+    },
+    "disable_charge_cmd": {
+      "register_type": "holding",
+      "address": 7807,
+      "scale": 1.0,
+      "offset": 0.0,
+      "disable_value": 0
+    },
+    "enable_discharge_cmd": {
+      "register_type": "holding",
+      "address": 7807,
+      "scale": 1.0,
+      "offset": 0.0,
+      "enable_value": 1
+    },
+    "disable_discharge_cmd": {
+      "register_type": "holding",
+      "address": 7807,
+      "scale": 1.0,
+      "offset": 0.0,
+      "disable_value": 0
+    },
+    "set_active_power": {
+      "register_type": "holding",
+      "address": 7811,
+      "scale": 1.0,
+      "offset": 0.0,
+      "data_type": "INT16",
+      "register_count": 1,
+      "unit": "kW",
+      "access": "RW",
+      "name_cn": "有功功率给定",
+      "write_function": "multiple"
+    },
+    "set_charge_power": {
+      "register_type": "holding",
+      "address": 7811,
+      "scale": 1.0,
+      "offset": 0.0,
+      "data_type": "INT16",
+      "register_count": 1,
+      "unit": "kW",
+      "access": "RW",
+      "name_cn": "充电/放电有功功率给定复用7811",
+      "write_function": "multiple"
+    },
+    "set_discharge_power": {
+      "register_type": "holding",
+      "address": 7811,
+      "scale": 1.0,
+      "offset": 0.0,
+      "data_type": "INT16",
+      "register_count": 1,
+      "unit": "kW",
+      "access": "RW",
+      "name_cn": "充电/放电有功功率给定复用7811",
+      "write_function": "multiple"
+    },
+    "reactive_power_remote_enable": {
+      "register_type": "holding",
+      "address": 7909,
+      "scale": 1.0,
+      "offset": 0.0,
+      "data_type": "UINT16",
+      "register_count": 1,
+      "unit": "",
+      "access": "RW",
+      "name_cn": "PCS无功远程写入使能",
+      "write_value": 1,
+      "enable_value": 1,
+      "write_function": "multiple",
+      "remark": "Set to 1 before remote writing reactive power setpoint 7812."
+    },
+    "set_reactive_power": {
+      "register_type": "holding",
+      "address": 7812,
+      "scale": 1.0,
+      "offset": 0.0,
+      "data_type": "INT16",
+      "register_count": 1,
+      "unit": "kvar",
+      "access": "RW",
+      "name_cn": "无功功率给定",
+      "write_function": "multiple"
+    },
+    "set_power_factor": {
+      "register_type": "holding",
+      "address": 7813,
+      "scale": 1.0,
+      "offset": 0.0
+    },
+    "set_ramp_rate": {
+      "register_type": "holding",
+      "address": 7817,
+      "scale": 1.0,
+      "offset": 0.0
+    },
+    "heartbeat": {
+      "register_type": "holding",
+      "address": 8194,
+      "scale": 1.0,
+      "offset": 0.0,
+      "data_type": "UINT16",
+      "register_count": 1,
+      "unit": "",
+      "access": "RW",
+      "name_cn": "PCS通信心跳",
+      "write_function": "multiple",
+      "remark": "PCS heartbeat write point corrected by site point table: 8194. Keep FC16/multiple for compatibility."
+    }
+  },
+  "name": "Kehua-BCS1250K",
+  "driver": "kehua_bcs1250_modbus"
+}

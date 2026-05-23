@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+.env/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Build / packaging
+build/
+dist/
+*.spec
+
+# Packet and SQLite caches
+profiles/*/.packet_cache/
+.packet_cache/
+packet_cache/
+*.sqlite
+*.sqlite3
+*.db
+*.db-wal
+*.db-shm
+
+# Large capture/data files
+*.asc
+*.blf
+*.pcap
+*.pcapng
+*.cap
+
+# Logs / exports
+*.log
+exports/
+reports/
+tmp/
+temp/
+profiles/default/output/

@@ -1,0 +1,22 @@
+{
+  "site": "Default Site",
+  "clusters": [
+    {
+      "name": "Cluster-1",
+      "bms_devices": [
+        "BESS1",
+        "BESS2",
+        "BESS3",
+        "BESS4",
+        "BESS13",
+        "BESS14",
+        "BESS15",
+        "BESS16"
+      ],
+      "pcs_device": "",
+      "pcs_devices": [],
+      "allocation_mode": "equal_split",
+      "fault_strategy": "stop_all"
+    }
+  ]
+}

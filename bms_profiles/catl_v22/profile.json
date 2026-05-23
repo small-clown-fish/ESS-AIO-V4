@@ -1,0 +1,8 @@
+{
+  "profile_key": "catl_v22",
+  "display_name": "CATL V22 TenerS/TenerX BMS",
+  "vendor": "CATL",
+  "device_type": "BMS",
+  "point_table": "bms_register_map.json",
+  "alarm_map": "alarm_map.json"
+}

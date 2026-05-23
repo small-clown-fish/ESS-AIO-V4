@@ -1,0 +1,16 @@
+{
+  "profile_key": "sma_template",
+  "display_name": "SMA PCS Template - replace with vendor point table",
+  "vendor": "SMA",
+  "model": "TBD",
+  "driver": "generic_modbus_pcs",
+  "enabled": false,
+  "host": "192.168.1.100",
+  "port": 502,
+  "unit_id": 1,
+  "timeout": 3.0,
+  "points": {},
+  "notes": [
+    "Template placeholder. Import or edit a real vendor Modbus point table before using for control."
+  ]
+}

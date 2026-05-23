@@ -1,0 +1,82 @@
+[
+  {
+    "name": "BESS1",
+    "host": "192.168.10.101",
+    "port": 502,
+    "unit_id": 1,
+    "interval": 2.0,
+    "output_dir": "/Users/xiechunyao/Downloads/MLD/",
+    "fake_scenario": "normal",
+    "profile": "catl_v22"
+  },
+  {
+    "name": "BESS2",
+    "host": "192.168.10.102",
+    "port": 502,
+    "unit_id": 1,
+    "interval": 2.0,
+    "output_dir": "/Users/xiechunyao/Downloads/MLD/",
+    "fake_scenario": "normal",
+    "profile": "catl_v22"
+  },
+  {
+    "name": "BESS3",
+    "host": "192.168.10.121",
+    "port": 502,
+    "unit_id": 1,
+    "interval": 2.0,
+    "output_dir": "/Users/xiechunyao/Downloads/MLD/",
+    "fake_scenario": "normal",
+    "profile": "catl_v22"
+  },
+  {
+    "name": "BESS4",
+    "host": "192.168.10.122",
+    "port": 502,
+    "unit_id": 1,
+    "interval": 2.0,
+    "output_dir": "/Users/xiechunyao/Downloads/MLD/",
+    "fake_scenario": "normal",
+    "profile": "catl_v22"
+  },
+  {
+    "name": "BESS13",
+    "host": "192.168.10.103",
+    "port": 502,
+    "unit_id": 1,
+    "interval": 2.0,
+    "output_dir": "/Users/xiechunyao/Downloads/MLD/",
+    "fake_scenario": "normal",
+    "profile": "catl_v22"
+  },
+  {
+    "name": "BESS14",
+    "host": "192.168.10.104",
+    "port": 502,
+    "unit_id": 1,
+    "interval": 2.0,
+    "output_dir": "/Users/xiechunyao/Downloads/MLD/",
+    "fake_scenario": "normal",
+    "profile": "catl_v22"
+  },
+  {
+    "name": "BESS15",
+    "host": "192.168.10.123",
+    "port": 502,
+    "unit_id": 1,
+    "interval": 2.0,
+    "output_dir": "/Users/xiechunyao/Downloads/MLD/",
+    "fake_scenario": "normal",
+    "profile": "catl_v22"
+  },
+  {
+    "name": "BESS16",
+    "host": "192.168.10.124",
+    "port": 502,
+    "unit_id": 1,
+    "interval": 2.0,
+    "output_dir": "/Users/xiechunyao/Downloads/MLD/",
+    "fake_scenario": "normal",
+    "profile": "catl_v22"
+  }
+]

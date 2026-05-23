@@ -1,0 +1,19 @@
+[project]
+name = "ess-aio"
+version = "3.5.0"
+description = "ESS-AIO Energy Storage System All-in-One Platform"
+requires-python = ">=3.10"
+
+authors = [
+  { name = "ESS-AIO" }
+]
+
+dependencies = [
+  "PySide6>=6.7,<7",
+  "pymodbus>=3.6,<4",
+  "openpyxl>=3.1,<4"
+]
+
+[tool.ess_aio]
+build_id = "v3.5-release-engineering"
+profile_schema_version = 3
